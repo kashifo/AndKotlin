@@ -3,54 +3,28 @@ package com.github.andkotlin
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
+    val TAG = javaClass.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Log.e(TAG, "onCreate")
 
-        val tv = findViewById<TextView>(R.id.tvTitle)
-        tv.setText("Bismillah")
-
-        val etName = findViewById<EditText>(R.id.editText)
-        val tvWelcome = findViewById<TextView>(R.id.tvWelcome)
-
-        findViewById<Button>(R.id.btnWelcome).setOnClickListener {
-            val name = etName.text.toString()
-            tvWelcome.setText(name)
-        }
-
-        tvWelcome.setOnClickListener(this)
-
-        val btn2 = findViewById<Button>(R.id.goto2)
-        btn2.setOnClickListener(this)
-
-
-    }
-
-    fun welcome(v: View){
-        val tv:TextView = v as TextView
-        Toast.makeText(this, tv.text, Toast.LENGTH_SHORT ).show()
+        btnRandomCats.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
-        Toast.makeText(this, "onClick", Toast.LENGTH_SHORT ).show()
+        Log.e(TAG, "onClick-${v?.id}")
 
-        if (v != null) {
-
-            if(v.id == R.id.goto2){
-                intent = Intent(this, SecondActivity::class.java)
-                intent.putExtra("args", "Hi")
-                startActivity(intent)
-            }
-
+        if( v?.id == R.id.btnRandomCats ){
+            val intent = Intent(this, RandomCatsActivity::class.java)
+            startActivity(intent)
         }
 
     }
